@@ -38,7 +38,7 @@ public class javaprojeleri {
 			return;
 		}
 		while(current != null) {
-			System.out.println(head.bookname +" "+ head.name);
+			System.out.println(current.bookname +" "+ current.name);
 			System.out.println("--------------------");
 			current = current.next;
 		}
