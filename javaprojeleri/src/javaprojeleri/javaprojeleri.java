@@ -3,7 +3,46 @@ package javaprojeleri;
 import java.util.*;
 
 public class javaprojeleri {
-
+	static class connectedlist{
+		String name;
+		String bookname;
+		connectedlist prev= null;
+		connectedlist next= null;
+		public connectedlist(String name, String bookname) {
+	        this.name = name;
+	        this.bookname = bookname;
+	    }
+	}
+	
+	static connectedlist head= null;
+	static connectedlist tail= null;
+	
+	public static void debtlist(String name, String bookname) {
+		connectedlist debtlist = new connectedlist(name, bookname);
+		if (head == null) {
+			head = debtlist;
+			tail = head;
+			System.out.println("Debt list created");
+		}
+		else if(head.prev == null) {
+			tail.next = debtlist;
+			debtlist.prev = tail;
+			tail = debtlist;
+			System.out.println("Debt list updated");
+		}
+	}
+	public static void debtprint() {
+		connectedlist current = head;
+		if (current == null) {
+			System.out.println("Debt list is empty");
+			return;
+		}
+		while(current != null) {
+			System.out.println(head.bookname +" "+ head.name);
+			System.out.println("--------------------");
+			current = current.next;
+		}
+	}
 	
 	static class book
 	{
@@ -69,7 +108,7 @@ public class javaprojeleri {
 		libr lib = new libr();
 		Scanner input = new Scanner(System.in);
 		while (true) {
-		System.out.println("Select your process : List, Add");
+		System.out.println("Select your process : List, Add, Take, DebtList");
 		String process = input.nextLine();
 		if (process.equalsIgnoreCase("List")) 
 		{
@@ -90,6 +129,16 @@ public class javaprojeleri {
 		if(array.length == 5 ) {
 			lib.Add(new recipiebook(array[0].trim(),array[1].trim(),array[2].trim(),Boolean.parseBoolean(array[3].trim()),array[4].trim()));
 		}
+		}
+		else if(process.equalsIgnoreCase("Take")) {
+			System.out.println("Write person name and book name with ',' between");
+			String splitter = "[,]";
+			String imported = input.nextLine();
+			String[] array = imported.split(splitter);
+			debtlist(array[0].trim(),array[1].trim());
+		}
+		else if(process.equalsIgnoreCase("DebtList")) {
+			debtprint();
 		}
 		}
 	}
